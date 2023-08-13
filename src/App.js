@@ -2,6 +2,9 @@ import { useEffect, useReducer } from 'react';
 import DateCounter from './DateCounter';
 import Header from './Header';
 import Main from './Main';
+import Loader from './Loader';
+import Error from './Error';
+import Start from './Start';
 
 const initialState = {
   questions: [],
@@ -30,7 +33,9 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+
+  const numQuestions = questions.length;
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData() {
@@ -59,7 +64,9 @@ function App() {
       <Header />
 
       <Main>
-        <p>1/15</p>
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Error />}
+        {status === 'ready' && <Start numQuestions={numQuestions} />}
       </Main>
     </div>
   );
