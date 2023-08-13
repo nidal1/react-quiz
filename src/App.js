@@ -1,15 +1,16 @@
 import { useEffect, useReducer } from 'react';
-import DateCounter from './DateCounter';
-import Header from './Header';
-import Main from './Main';
-import Loader from './Loader';
-import Error from './Error';
-import Start from './Start';
-import Question from './Question';
+import DateCounter from './components/DateCounter';
+import Header from './components/Header';
+import Main from './components/Main';
+import Loader from './components/Loader';
+import Error from './components/Error';
+import Start from './components/Start';
+import Question from './components/Question';
 
 const initialState = {
   questions: [],
   status: 'loading',
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -40,7 +41,10 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestions = questions.length;
   useEffect(() => {
@@ -76,7 +80,7 @@ function App() {
         {status === 'ready' && (
           <Start numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === 'active' && <Question numQuestions={numQuestions} />}
+        {status === 'active' && <Question question={questions[index]} />}
       </Main>
     </div>
   );
