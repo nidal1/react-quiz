@@ -1,8 +1,11 @@
 import React from 'react';
-import { useQuiz } from '../context/QuizContext';
 
-export default function Finish() {
-  const { points, maxPossiblePoints, hightScore, dispatch } = useQuiz();
+export default function Finish({
+  points,
+  maxPossiblePoints,
+  hightScore,
+  dispatch,
+}) {
   const per = (points / maxPossiblePoints) * 100;
 
   return (
