@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Timer from './components/Timer';
 import { useQuiz } from './context/QuizContext';
 import Loader from './components/Loader';
+import Error from './components/Error';
 
 function App() {
   const { status } = useQuiz();
